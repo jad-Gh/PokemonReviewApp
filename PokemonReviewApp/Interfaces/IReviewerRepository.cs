@@ -7,6 +7,7 @@ namespace PokemonReviewApp.Interfaces
         ICollection<Reviewer> GetReviewers();
         Reviewer GetReviewer(int id);
         bool ReviewerExists(int id);
+        ICollection<Review> GetReviewsByReviewer(int reviewerId);
 
     }
 }
