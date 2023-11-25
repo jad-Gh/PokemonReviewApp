@@ -9,12 +9,19 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllers();
+//For Seed
 builder.Services.AddTransient<Seed>();
+//For Mapper
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+//For Controllers
 builder.Services.AddScoped<IPokemonRepository, PokemonRepository>();
+builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+builder.Services.AddScoped<ICountryRepository, CountryRepository>();
+builder.Services.AddScoped<IOwnerRepository, OwnerRepository>();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+//FOr DBContext
 builder.Services.AddDbContext<DataContext>(options => {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")); ;
 });
@@ -22,6 +29,7 @@ builder.Services.AddDbContext<DataContext>(options => {
 var app = builder.Build();
 
 
+//Allows Seed to work
 if (args.Length == 1 && args[0].ToLower() == "seeddata")
     SeedData(app);
 void SeedData(IHost app)
