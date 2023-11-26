@@ -71,5 +71,12 @@ namespace PokemonReviewApp.Repository
             var saved = _context.SaveChanges();
             return saved > 0 ? true : false;
         }
+
+        public bool UpdatePokemon(Pokemon pokemon, int ownerId, int categoryId)
+        {
+            _context.Update(pokemon);
+
+            return Save();
+        }
     }
 }

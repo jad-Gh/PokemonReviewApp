@@ -1,6 +1,7 @@
 ﻿using PokemonReviewApp.Data;
 using PokemonReviewApp.Interfaces;
 using PokemonReviewApp.Models;
+using System.Diagnostics.Metrics;
 
 namespace PokemonReviewApp.Repository
 {
@@ -43,6 +44,13 @@ namespace PokemonReviewApp.Repository
         {
             var save = _context.SaveChanges();
             return save > 0 ? true : false;
+        }
+
+        public bool UpdateOwner(Owner owner)
+        {
+            _context.Update(owner);
+
+            return Save();
         }
     }
 }
