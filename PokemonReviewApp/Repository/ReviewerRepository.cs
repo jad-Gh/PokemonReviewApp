@@ -2,6 +2,7 @@
 using PokemonReviewApp.Data;
 using PokemonReviewApp.Interfaces;
 using PokemonReviewApp.Models;
+using System.Diagnostics.Metrics;
 
 namespace PokemonReviewApp.Repository
 {
@@ -13,6 +14,13 @@ namespace PokemonReviewApp.Repository
         {
             _context = context;
         }
+
+        public bool CreateReviewer(Reviewer reviewer)
+        {
+            _context.Add(reviewer);
+            return Save();
+        }
+
         public Reviewer GetReviewer(int id)
         {
             return _context.Reviewers.Where(r=>r.Id==id).Include(r=>r.Reviews).FirstOrDefault();
@@ -31,6 +39,14 @@ namespace PokemonReviewApp.Repository
         public bool ReviewerExists(int id)
         {
             return _context.Reviewers.Any(r => r.Id==id);
+        }
+
+        public bool Save()
+        {
+            var save = _context.SaveChanges();
+
+            return save > 0 ? true : false;
+
         }
     }
 }
